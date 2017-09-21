@@ -4,12 +4,12 @@ from django.db import models
 
 
 class Task(models.Model):
-    name = CharField()
+    name = CharField(max_length=10)
     start = DateTimeField()
     end = DateTimeField()
 
 class Test(models.Model):
-    name = CharField()
+    name = CharField(max_length=15)
     stype = IntegerField()
     studyTime = IntegerField()
     start = DateTimeField()
@@ -21,9 +21,7 @@ class Timezone(models.Model):
 
 
 class Study(models.Model):
-    name = CharField()
+    name = CharField(max_length=15)
     stype = IntegerField()
     start = DateTimeField()
     end = DateTimeField()
-
-
