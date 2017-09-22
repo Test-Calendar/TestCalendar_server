@@ -14,7 +14,7 @@ class Test(models.Model):
     studyTime = models.IntegerField()
     start = models.DateTimeField()
 
-class Timezone(models.Model):
+class TimeZone(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
 

@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONPerser
+from rest_framework.parsers import JSONParser
 from api.models import Study, Task, Test, TimeZone
 from api.serializers import StudySerializer, TaskSerializer, TestSerializer
 
