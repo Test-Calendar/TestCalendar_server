@@ -1,7 +1,7 @@
 import cvxpy
 import numpy as np
 
-def knapsack(size, weight, capacity):
+def binary(size, weight, capacity):
 	x = cvxpy.Int(size.shape[0])
 	objective = cvxpy.Maximize(weight * x)
 	constraints = [capacity >= size * x]
@@ -13,4 +13,4 @@ def knapsack(size, weight, capacity):
 	return result
 
 if __name__ == "__main__":
-	knapsack()
+	binary()

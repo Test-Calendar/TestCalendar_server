@@ -14,7 +14,7 @@ def main():
 	weight = np.array([22, 12, 16, 10, 35, 26, 42, 53])
 	capacity = 100
 
-	print("result", binary.knapsack(size, weight, capacity))
+	print("result", binary.binary(size, weight, capacity))
 
 if __name__ == "__main__":
 	main()
