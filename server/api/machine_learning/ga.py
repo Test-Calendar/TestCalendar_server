@@ -9,8 +9,12 @@ creator.create("Individual", list, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 
+# 0 or 1 乱数生成
 toolbox.register("attr_bool", random.randint, 0, 1)
+
+# 個体生成
 toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, 100)
+#
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 def evalOneMax(individual):
@@ -22,7 +26,7 @@ toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
 
-def main():
+def oneMax():
     random.seed(64)
 
     pop = toolbox.population(n=300)
@@ -36,6 +40,7 @@ def main():
 
     print("  Evaluated %i individuals" % len(pop))
 
+	# Generation ###################################################3
     for g in range(NGEN):
         print("-- Generation %i --" % g)
 
@@ -75,11 +80,11 @@ def main():
         print("  Max %s" % max(fits))
         print("  Avg %s" % mean)
         print("  Std %s" % std)
-
+    ##################################################################
     print("-- End of (successful) evolution --")
 
     best_ind = tools.selBest(pop, 1)[0]
     print("Best individual is %s, %s" % (best_ind, best_ind.fitness.values))
 
 if __name__ == "__main__":
-    main()
+    oneMax()
