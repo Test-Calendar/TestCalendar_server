@@ -15,6 +15,3 @@ def binary(size, weight, capacity):
 		result.append([round(ix[0, 0]) for ix in x.value])
 
 	return result
-
-if __name__ == "__main__":
-	binary()
