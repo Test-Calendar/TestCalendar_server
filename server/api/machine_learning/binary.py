@@ -12,5 +12,5 @@ def binary(size, weight, capacity):
 
 	return result
 
-if __name__ == "__main__":
-	binary()
+# if __name__ == "__main__":
+# 	binary()
