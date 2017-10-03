@@ -17,11 +17,6 @@ def tests_process():
     tests.append(Test("poko", 2, 7, datetime.datetime(2017, 11, 1)))
 
     time_zone = TimeZone(18, 23)
-    # study_schedule = []
-    # sorted_value = max(dic.items(), key=(lambda x: x[1]))[0]
-    # sorted_value = sorted(dic, key=attrgetter('age'))
-    # sorted_value = sorted(dic, key=lambda t: t[1])
-    # print(sorted_value)
     processing.processing(task_list=tasks, test_list=tests, time_zones=time_zone)
 
 if __name__ == '__main__':
