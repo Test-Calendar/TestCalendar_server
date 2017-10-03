@@ -12,11 +12,12 @@ def tests_process():
         tasks.append(Task("task", day_start, day_end))
     tests = []
     # random_str = ''.join([random.choice(string.ascii_letters + string.digits) for i in range(4)])
+    tests.append(Test("math", 1, 6, datetime.datetime(2017, 10, 30)))
     tests.append(Test("math", 1, 8, datetime.datetime(2017, 10, 31)))
     tests.append(Test("poko", 1, 7, datetime.datetime(2017, 11, 1)))
     tests.append(Test("poko", 2, 7, datetime.datetime(2017, 11, 1)))
 
-    time_zone = TimeZone(18, 23)
+    time_zone = TimeZone(18, 19)
     processing.processing(task_list=tasks, test_list=tests, time_zones=time_zone)
 
 if __name__ == '__main__':
