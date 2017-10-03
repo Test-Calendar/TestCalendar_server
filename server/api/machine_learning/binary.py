@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import cvxpy
 import numpy as np
 
