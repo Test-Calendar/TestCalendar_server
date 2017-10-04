@@ -7,10 +7,11 @@ def binary(size, weight, capacity):
 	count = 0
 	for i in size:
 		x = cvxpy.Int(i.shape[0])
-		objective = cvxpy.Maximize(weight[] * x)
+		objective = cvxpy.Maximize(weight[count] * x)
 		#
 		constraints = [capacity >= size * x]
 		constraints += [x >= 0, x <= 1]
+		# constraints += [objective < 100]
 		#
 		prob = cvxpy.Problem(objective, constraints)
 		prob.solve(solver=cvxpy.ECOS_BB)

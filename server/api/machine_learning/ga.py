@@ -1,34 +1,37 @@
 # -*- coding: utf-8 -*-
 import random
+import numpy
 
 from deap import base
 from deap import creator
 from deap import tools
 
-creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-creator.create("Individual", list, fitness=creator.FitnessMax)
-
-toolbox = base.Toolbox()
-
-# 0 or 1 乱数生成
-toolbox.register("attr_bool", random.randint, 0, 1)
-
-# 個体生成
-toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, 100)
-#
-toolbox.register("population", tools.initRepeat, list, toolbox.individual)
-
 def evalOneMax(individual):
     return sum(individual),
 
-toolbox.register("evaluate", evalOneMax)
-toolbox.register("mate", tools.cxTwoPoint)
-toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
-toolbox.register("select", tools.selTournament, tournsize=3)
-
-
-def oneMax():
+def oneMax(fit, attr_bool):
     random.seed(64)
+
+    # creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+    creator.create("FitnessMax", fit, weights=(1.0,))
+    creator.create("Individual", list, fitness=creator.FitnessMax)
+
+    toolbox = base.Toolbox()
+
+    # 0 or 1 乱数生成
+    # toolbox.register("attr_bool", random.randint, 0, 1)
+
+    # 個体生成
+    # toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, 100)
+    toolbox.register("individual", tools.initRepeat, creator.Individual, attr_bool, 100)
+    #
+    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+
+    toolbox.register("evaluate", evalOneMax)
+    toolbox.register("mate", tools.cxTwoPoint)
+    toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
+    toolbox.register("select", tools.selTournament, tournsize=3)
+
 
     pop = toolbox.population(n=300)
     CXPB, MUTPB, NGEN = 0.5, 0.2, 40
