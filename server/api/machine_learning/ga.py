@@ -11,20 +11,12 @@ creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 
-n_gene = 100
-min_ind = numpy.ones(n_gene) * -1.0
-max_ind = numpy.ones(n_gene) *  1.0
-
-def create_ind_uniform(min_ind, max_ind):
-    ind = []
-    for min, max in zip(min_ind, max_ind):
-        ind.append(random.uniform(min, max))
-    return ind
-
-toolbox.register("create_ind", create_ind_uniform, min_ind, max_ind)
-toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.create_ind)
+""" make fast Generation """
+toolbox.register("attr_bool", random.randint, 0, 1)
+toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, n=100)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
+""" purpose function need myself """
 def evalOneMax(individual):
     return sum(individual),
 
@@ -41,16 +33,10 @@ def cxTwoPointCopy(ind1, ind2):
 
     return ind1, ind2
 
-def mutUniformDbl(individual, min_ind, max_ind, indpb):
-    size = len(individual)
-    for i, min, max  in zip(xrange(size), min_ind, max_ind):
-        if random.random() < indpb:
-            individual[i] = random.uniform(min, max)
-    return individual,
 
 toolbox.register("evaluate", evalOneMax)
 toolbox.register("mate", cxTwoPointCopy)
-toolbox.register("mutate", mutUniformDbl, min_ind=min_ind, max_ind=max_ind, indpb=0.05)
+toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
 def main():
@@ -66,7 +52,7 @@ def main():
     stats.register("min", numpy.min)
     stats.register("max", numpy.max)
 
-    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=1000, stats=stats,halloffame=hof)
+    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=40, stats=stats,halloffame=hof)
 
     return pop, stats, hof
 
