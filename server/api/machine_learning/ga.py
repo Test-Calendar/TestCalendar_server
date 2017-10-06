@@ -1,94 +1,74 @@
-# -*- coding: utf-8 -*-
 import random
 import numpy
 
+from deap import algorithms
 from deap import base
 from deap import creator
 from deap import tools
 
+creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
+
+toolbox = base.Toolbox()
+
+n_gene = 100
+min_ind = numpy.ones(n_gene) * -1.0
+max_ind = numpy.ones(n_gene) *  1.0
+
+def create_ind_uniform(min_ind, max_ind):
+    ind = []
+    for min, max in zip(min_ind, max_ind):
+        ind.append(random.uniform(min, max))
+    return ind
+
+toolbox.register("create_ind", create_ind_uniform, min_ind, max_ind)
+toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.create_ind)
+toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+
 def evalOneMax(individual):
     return sum(individual),
 
-def oneMax(fit, attr_bool):
+def cxTwoPointCopy(ind1, ind2):
+    size = len(ind1)
+    cxpoint1 = random.randint(1, size)
+    cxpoint2 = random.randint(1, size - 1)
+    if cxpoint2 >= cxpoint1:
+        cxpoint2 += 1
+    else: # Swap the two cx points
+        cxpoint1, cxpoint2 = cxpoint2, cxpoint1
+
+    ind1[cxpoint1:cxpoint2], ind2[cxpoint1:cxpoint2] = ind2[cxpoint1:cxpoint2].copy(), ind1[cxpoint1:cxpoint2].copy()
+
+    return ind1, ind2
+
+def mutUniformDbl(individual, min_ind, max_ind, indpb):
+    size = len(individual)
+    for i, min, max  in zip(xrange(size), min_ind, max_ind):
+        if random.random() < indpb:
+            individual[i] = random.uniform(min, max)
+    return individual,
+
+toolbox.register("evaluate", evalOneMax)
+toolbox.register("mate", cxTwoPointCopy)
+toolbox.register("mutate", mutUniformDbl, min_ind=min_ind, max_ind=max_ind, indpb=0.05)
+toolbox.register("select", tools.selTournament, tournsize=3)
+
+def main():
     random.seed(64)
 
-    # creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-    creator.create("FitnessMax", fit, weights=(1.0,))
-    creator.create("Individual", list, fitness=creator.FitnessMax)
-
-    toolbox = base.Toolbox()
-
-    # 0 or 1 乱数生成
-    # toolbox.register("attr_bool", random.randint, 0, 1)
-
-    # 個体生成
-    # toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, 100)
-    toolbox.register("individual", tools.initRepeat, creator.Individual, attr_bool, 100)
-    #
-    toolbox.register("population", tools.initRepeat, list, toolbox.individual)
-
-    toolbox.register("evaluate", evalOneMax)
-    toolbox.register("mate", tools.cxTwoPoint)
-    toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
-    toolbox.register("select", tools.selTournament, tournsize=3)
-
-
     pop = toolbox.population(n=300)
-    CXPB, MUTPB, NGEN = 0.5, 0.2, 40
 
-    print("Start of evolution")
+    hof = tools.HallOfFame(1, similar=numpy.array_equal)
 
-    fitnesses = list(map(toolbox.evaluate, pop))
-    for ind, fit in zip(pop, fitnesses):
-        ind.fitness.values = fit
+    stats = tools.Statistics(lambda ind: ind.fitness.values)
+    stats.register("avg", numpy.mean)
+    stats.register("std", numpy.std)
+    stats.register("min", numpy.min)
+    stats.register("max", numpy.max)
 
-    print("  Evaluated %i individuals" % len(pop))
+    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=1000, stats=stats,halloffame=hof)
 
-	# Generation ###################################################3
-    for g in range(NGEN):
-        print("-- Generation %i --" % g)
-
-        offspring = toolbox.select(pop, len(pop))
-        offspring = list(map(toolbox.clone, offspring))
-
-        for child1, child2 in zip(offspring[::2], offspring[1::2]):
-
-            if random.random() < CXPB:
-                toolbox.mate(child1, child2)
-                del child1.fitness.values
-                del child2.fitness.values
-
-        for mutant in offspring:
-
-            if random.random() < MUTPB:
-                toolbox.mutate(mutant)
-                del mutant.fitness.values
-
-        invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
-        fitnesses = map(toolbox.evaluate, invalid_ind)
-        for ind, fit in zip(invalid_ind, fitnesses):
-            ind.fitness.values = fit
-
-        print("  Evaluated %i individuals" % len(invalid_ind))
-
-        pop[:] = offspring
-
-        fits = [ind.fitness.values[0] for ind in pop]
-
-        length = len(pop)
-        mean = sum(fits) / length
-        sum2 = sum(x*x for x in fits)
-        std = abs(sum2 / length - mean**2)**0.5
-
-        print("  Min %s" % min(fits))
-        print("  Max %s" % max(fits))
-        print("  Avg %s" % mean)
-        print("  Std %s" % std)
-    ##################################################################
-    print("-- End of (successful) evolution --")
-
-    best_ind = tools.selBest(pop, 1)[0]
-    print("Best individual is %s, %s" % (best_ind, best_ind.fitness.values))
+    return pop, stats, hof
 
 if __name__ == "__main__":
-    oneMax()
+    main()
