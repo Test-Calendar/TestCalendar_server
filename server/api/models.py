@@ -16,6 +16,11 @@ class Test(models.Model):
     stype = models.IntegerField()
     studyTime = models.IntegerField()
     start = models.DateTimeField()
+
+    def __lt__(self, other):
+        # self < other
+        return self.start < other.start
+
     class Meta:
         db_tablespace = "test"
 

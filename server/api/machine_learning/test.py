@@ -17,7 +17,7 @@ def tests_process():
     tests.append(Test("math", 1, 8, datetime.datetime(2017, 10, 31)))
     tests.append(Test("poko", 1, 7, datetime.datetime(2017, 11, 1)))
     tests.append(Test("poko", 2, 7, datetime.datetime(2017, 11, 1)))
-    tests.append(Test("poko", 2, 7, datetime.datetime(2017, 11, 2)))
+    tests.append(Test("taku", 2, 7, datetime.datetime(2017, 11, 2)))
     tests.append(Test("poko", 2, 9, datetime.datetime(2017, 11, 3)))
 
     time_zone = TimeZone(18, 23)
