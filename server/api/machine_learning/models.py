@@ -1,6 +1,7 @@
 import string
 import random
 import datetime
+import numpy as np
 
 class Task:
     def __init__(self, name, start, end):
@@ -35,9 +36,9 @@ class Study:
         self.start = start
         self.end = end
 
-# class oneday:
-#     def __init__(self):
-#         self.schedule = []
-
-    # def toArray(self):
-    #     return self.schedule
+class Para:
+    def __init__(self, size, weight, sizeCol, sizeLow):
+        self.size = size
+        self.weight = np.array(weight)
+        self.sizeCol = sizeCol
+        self.sizeLow = sizeLow
