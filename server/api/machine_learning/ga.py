@@ -14,8 +14,14 @@ creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
 toolbox = base.Toolbox()
 
 def evalOneMax(individual, para):
-    value_times = [x * y for x, y in zip(individual, para.weight)]
-    return sum(value_times),
+    negativ = 0
+    value_weight = np.array([x * y for x, y in zip(individual, para.weight)])
+    value_weight_array = value_weight.reshape(para.sizeLow.days, para.sizeCol)
+    individual_array = individual.reshape(para.sizeLow.days, para.sizeCol)
+    for ind, val_wei in zip(individual_array, value_weight_array):
+        if sum(ind) > para.study_time:
+            negativ = sum(val_wei) / -2
+    return sum(value_weight) + negativ,
 
 def cxTwoPointCopy(ind1, ind2):
     size = len(ind1)
@@ -43,16 +49,12 @@ def main(para):
     toolbox.register("select", tools.selTournament, tournsize=3)
 
 
-    pop = toolbox.population(n=300)
+    pop = toolbox.population(n=50)
 
     hof = tools.HallOfFame(1, similar=np.array_equal)
 
     stats = tools.Statistics(lambda ind: ind.fitness.values)
-    # stats.register("avg", numpy.mean)
-    # stats.register("std", numpy.std)
-    # stats.register("min", numpy.min)
-    # stats.register("max", numpy.max)
 
-    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=100, stats=stats,halloffame=hof)
+    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=1000, stats=stats,halloffame=hof)
 
     return hof
