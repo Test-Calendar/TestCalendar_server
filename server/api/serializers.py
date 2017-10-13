@@ -16,3 +16,8 @@ class TestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
         fileds = ('name', 'stype', 'studyTime', 'start')
+
+class TimeZoneSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TimeZone
+        fileds = ('start', 'end')
