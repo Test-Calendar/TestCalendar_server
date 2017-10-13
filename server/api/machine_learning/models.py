@@ -9,6 +9,17 @@ class Task:
         self.start = start
         self.end = end
 
+    def get_start_time(self, study_start):
+        if self.start.hour < study_start:
+            return study_start
+        else:
+            return self.start.hour
+    def get_end_time(self, study_end):
+        if self.end.hour < study_end:
+            return study_end
+        else:
+            return self.end.hour
+
 class Test:
     def __init__(self, name, stype, studyTime, start):
         self.name = name
@@ -29,16 +40,21 @@ class TimeZone:
         hour = self.end - self.start
         return hour
 
+# class Study:
+#     def __init__(self, name, stype, start, end):
+#         self.name = name
+#         self.stype = stype
+#         self.start = start
+#         self.end = end
 class Study:
-    def __init__(self, name, stype, start, end):
+    def __init__(self, name, stype):
         self.name = name
         self.stype = stype
-        self.start = start
-        self.end = end
 
 class Para:
-    def __init__(self, size, weight, sizeCol, sizeLow):
+    def __init__(self, size, weight, sizeCol, sizeLow, study_time):
         self.size = size
         self.weight = np.array(weight)
         self.sizeCol = sizeCol
         self.sizeLow = sizeLow
+        self.study_time = study_time
