@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import time
+from models import Para
 
 from deap import algorithms
 from deap import base
@@ -11,10 +12,9 @@ creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
-weight = np.array([])
 
-def evalOneMax(individual, weight):
-    value_times = [x * y for x, y in zip(individual, weight)]
+def evalOneMax(individual, para):
+    value_times = [x * y for x, y in zip(individual, para.weight)]
     return sum(value_times),
 
 def cxTwoPointCopy(ind1, ind2):
@@ -30,15 +30,14 @@ def cxTwoPointCopy(ind1, ind2):
 
     return ind1, ind2
 
-def main(weights_list, size):
+def main(para):
     random.seed(time.time())
-    base_size = size
 
     toolbox.register("attr_bool", random.randint, 0, 1)
-    toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, n=base_size)
+    toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, n=para.size)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
-    toolbox.register("evaluate", evalOneMax, weights_list)
+    toolbox.register("evaluate", evalOneMax, para=para)
     toolbox.register("mate", cxTwoPointCopy)
     toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
     toolbox.register("select", tools.selTournament, tournsize=3)
@@ -54,6 +53,6 @@ def main(weights_list, size):
     # stats.register("min", numpy.min)
     # stats.register("max", numpy.max)
 
-    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=40, stats=stats,halloffame=hof)
+    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=100, stats=stats,halloffame=hof)
 
     return hof
