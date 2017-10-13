@@ -4,7 +4,7 @@ import numpy as np
 import math
 
 def evaluate(count, until_test):
-    return math.exp((count + 1) / float(until_test.days)) if count + 1 < until_test.days else -10
+    return math.exp((count + 1) / float(until_test.days)) if count + 1 < until_test.days else -3
 
 def evaluation_func(test_list, task_list):
 	today = datetime.datetime.today()

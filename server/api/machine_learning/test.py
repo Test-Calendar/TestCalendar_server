@@ -7,7 +7,7 @@ from models import Task, Test, TimeZone, Study
 def tests_process():
     tasks = []
     for i in range(5):
-        day_start = datetime.datetime(2017, 10, 25 + i, 18)
+        day_start = datetime.datetime(2017, 10, 25 + i, 17)
         day_end = datetime.datetime(2017, 10, 25 + i, 20)
         tasks.append(Task("task", day_start, day_end))
     tests = []
@@ -18,6 +18,7 @@ def tests_process():
     tests.append(Test("poko", 1, 7, datetime.datetime(2017, 11, 1)))
     tests.append(Test("poko", 2, 7, datetime.datetime(2017, 11, 1)))
     tests.append(Test("taku", 2, 7, datetime.datetime(2017, 11, 2)))
+    tests.append(Test("taku", 1, 7, datetime.datetime(2017, 11, 2)))
     tests.append(Test("poko", 2, 9, datetime.datetime(2017, 11, 3)))
 
     time_zone = TimeZone(18, 23)
