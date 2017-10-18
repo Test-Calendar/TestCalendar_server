@@ -20,28 +20,30 @@ def processing(task_list, test_list, time_zones):
 	""" parameter """
 	today = datetime.datetime.today()
 	sizeCol = len(test_list)
-	max_daye = max([tes.start for tes in test_list])
-	sizeLow = max_daye - today
+	max_date = max([tes.start for tes in test_list])
+	sizeLow = (max_date - today).days - 1
 	study_time = time_zones.get_hour() + 1
 
 	""" set up """
 	# size = np.array([1 for i in range(sizeCol * sizeLow.days)])
 	# size = sizeCol * sizeLow.days * study_time
-	size = sizeCol * sizeLow.days
-	weight = np.array(eva.evaluation_func(test_list, task_list))
+	size = sizeCol * sizeLow
+	weight = np.array(eva.evaluation_func(test_list, task_list, sizeLow))
 
 	para = Para(size=size, weight=weight, sizeCol=sizeCol, sizeLow=sizeLow, study_time=study_time)
 
 	result = ga.main(para)
 
-	sche = np.array(result[-1])
+	schedule = np.array(result[-1])
 
-	schedule_list = make_schedule(sche.reshape(sizeLow.days, sizeCol), test_list)
+	schedule_list = make_schedule(schedule.reshape(sizeLow, sizeCol), test_list)
 	for i in schedule_list:
 		print([j.name for j in i])
 		print([j.stype for j in i])
 
-	print(sche.reshape(sizeLow.days, sizeCol))
+	# print(weight.reshape(sizeLow, sizeCol))
+	# print(schedule.reshape(sizeLow, sizeCol))
+	return schedule_list
 
 def make_schedule(sche, test_list):
 	schedule_list = []
@@ -59,6 +61,10 @@ def make_schedule(sche, test_list):
 
 	return schedule_list
 
+def time_manege(time_zone, test_fin_day):
+	today = datetime.datetime.today()
+	st_day = today.date() + time_zone.start
+
+
 if __name__ == "__main__":
-	# django.conf.settings.configure(default_settings=server.server.settings)
 	processing()
