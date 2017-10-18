@@ -6,15 +6,14 @@ import math
 def evaluate(count, until_test):
     return math.exp((count + 1) / float(until_test.days)) if count + 1 < until_test.days else -3
 
-def evaluation_func(test_list, task_list):
+def evaluation_func(test_list, task_list, sizeLow):
 	today = datetime.datetime.today()
 	sizeCol = len(test_list)
 	max_daye = max([tes.start for tes in test_list])
-	sizeLow = max_daye - today
 	evaluation_list = []
 
 	""" function """
-	for i in range(sizeLow.days):
+	for i in range(sizeLow):
 		evaluation = []
 		for j in range(sizeCol):
 			evaluation_value = evaluate(i, test_list[j].start - today)
@@ -26,5 +25,3 @@ def evaluation_func(test_list, task_list):
 
 def check_totaltime(study_list):
     pass
-
-# /Users/takahiro/workspace/test_python/TestCalendar_server/server/api/machine_learning
