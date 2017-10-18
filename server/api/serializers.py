@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from api.models import Study, Task, Test
+from api.models import Study, Task, Test, TimeZone
 
 class StudySerializer(serializers.ModelSerializer):
     class Meta:

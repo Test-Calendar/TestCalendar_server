@@ -8,8 +8,8 @@ class Task(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
 
-    class Meta:
-        db_tablespace = "task"
+    # class Meta:
+        # db_tablespace = "task"
 
 class Test(models.Model):
     name = models.CharField(max_length=15)
@@ -21,14 +21,14 @@ class Test(models.Model):
         # self < other
         return self.start < other.start
 
-    class Meta:
-        db_tablespace = "test"
+    # class Meta:
+    #     db_tablespace = "test"
 
 class TimeZone(models.Model):
     start = models.IntegerField()
     end = models.IntegerField()
-    class Meta:
-        db_tablespace = "time_zone"
+    # class Meta:
+    #     db_tablespace = "time_zone"
 
 
 
@@ -37,5 +37,5 @@ class Study(models.Model):
     stype = models.IntegerField()
     start = models.DateTimeField()
     end = models.DateTimeField()
-    class Meta:
-        db_tablespace = "study"
+    # class Meta:
+    #     db_tablespace = "study"
