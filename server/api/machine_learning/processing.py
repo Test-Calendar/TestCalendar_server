@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import numpy as np
-import cvxpy
 import datetime
 """"""
 # # from django.conf import settings
