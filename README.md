@@ -1,5 +1,6 @@
 # TestCalendar_server
 TestCalendarアプリのサーバーサイドのコードです。
 
-python 2.7.10を使用
+開発環境：
+python 2.7.14,
 django 1.11.3
