@@ -12,18 +12,18 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import dj_database_url
-import urlparse
+# import urlparse
 
-urlparse.uses_netloc.append("postgres")
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
-
-conn = psycopg2.connect(
-    database=url.path[1:],
-    user=url.username,
-    password=url.password,
-    host=url.hostname,
-    port=url.port
-)
+# urlparse.uses_netloc.append("postgres")
+# url = urlparse.urlparse(os.environ["DATABASE_URL"])
+#
+# conn = psycopg2.connect(
+#     database=url.path[1:],
+#     user=url.username,
+#     password=url.password,
+#     host=url.hostname,
+#     port=url.port
+# )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -105,17 +105,17 @@ WSGI_APPLICATION = 'server.wsgi.application'
 #     except KeyError:
 #         error_msg = "Set the %s environment variable" % var_name
 #         raise ImproperlyConfigured(error_msg)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd5sdsjavapg1gk',
-        'USER': 'ecqktxoqrjrofp',
-        'PASSWORD': 'db11f6fa03faec37e23e92098684d1fe394d4c3bb9cdda247b35d1c0b25dcbeb',
-        # 'HOST': '127.0.0.1',
-        'HOST': 'ec2-50-19-105-113.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd5sdsjavapg1gk',
+#         'USER': 'ecqktxoqrjrofp',
+#         'PASSWORD': 'db11f6fa03faec37e23e92098684d1fe394d4c3bb9cdda247b35d1c0b25dcbeb',
+#         # 'HOST': '127.0.0.1',
+#         'HOST': 'ec2-50-19-105-113.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 # Parse database configuration from $DATABASE_URL
 # db_from_env = dj_database_url.config()
