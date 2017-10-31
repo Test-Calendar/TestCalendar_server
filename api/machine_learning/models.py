@@ -52,9 +52,10 @@ class Study:
         self.stype = stype
 
 class Para:
-    def __init__(self, size, weight, sizeCol, sizeLow, study_time):
+    def __init__(self, size, weight, sizeCol, sizeLow, study_time, test_list):
         self.size = size
         self.weight = np.array(weight)
         self.sizeCol = sizeCol
         self.sizeLow = sizeLow
         self.study_time = study_time
+        self.test_list = test_list

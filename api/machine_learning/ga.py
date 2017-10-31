@@ -13,11 +13,17 @@ creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 
+def subject_time_check(para, subject_time):
+    neg = [0 if assign_time.studyTime > sub_time else (sub_time - assign_time.studyTime) for assign_time, sub_time in zip(para.test_list, subject_time)]
+    return sum(neg) * -1 * para.sizeLow
+
 def evalOneMax(individual, para):
-    negativ = 0
     value_weight = np.array([x * y for x, y in zip(individual, para.weight)])
     value_weight_array = value_weight.reshape(para.sizeLow, para.sizeCol)
     individual_array = individual.reshape(para.sizeLow, para.sizeCol)
+    subject_time = np.sum(individual_array, axis=0)
+    negativ = subject_time_check(para, subject_time)
+
     for ind, val_wei in zip(individual_array, value_weight_array):
         if sum(ind) > para.study_time:
             negativ = negativ - (sum(val_wei) / 2)
@@ -55,6 +61,6 @@ def main(para):
 
     stats = tools.Statistics(lambda ind: ind.fitness.values)
 
-    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=100, stats=stats,halloffame=hof)
+    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=1000, stats=stats,halloffame=hof)
 
     return hof

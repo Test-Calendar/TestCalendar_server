@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 from socket import gethostname
-from dj_static import Cling
+# from dj_static import Cling
 from django.core.wsgi import get_wsgi_application
 
 # application = Cling(get_wsgi_application())
@@ -79,27 +79,27 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-# if "COMPUTER-NAME" in hostname:
-#     DATABASES = {
-#         'default': {
+# DATABASES = {
+#     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
 #     }
-#     ALLOWED_HOSTS = []
-# else:
-#     import dj_database_url
-#     db_from_env = dj_database_url.config()
-#     DATABASES = {
-#     'default': dj_database_url.config()
-#     }
-#     ALLOWED_HOSTS = ['*']
+# }
+if "COMPUTER-NAME" in hostname:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+    ALLOWED_HOSTS = []
+else:
+    import dj_database_url
+    db_from_env = dj_database_url.config()
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+    ALLOWED_HOSTS = ['*']
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

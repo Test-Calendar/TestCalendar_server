@@ -29,15 +29,22 @@ def processing(task_list, test_list, time_zones):
 	size = sizeCol * sizeLow
 	weight = np.array(eva.evaluation_func(test_list, task_list, sizeLow))
 
-	para = Para(size=size, weight=weight, sizeCol=sizeCol, sizeLow=sizeLow, study_time=study_time)
+	para = Para(
+		size=size,
+		weight=weight,
+		sizeCol=sizeCol,
+		sizeLow=sizeLow,
+		study_time=study_time,
+		test_list=test_list)
 
 	result = ga.main(para)
 
 	schedule = np.array(result[-1])
 
 	schedule_list = make_schedule(schedule.reshape(sizeLow, sizeCol), test_list)
+	print(weight.reshape(sizeLow, sizeCol))
 	for i in schedule_list:
-		print([j.name for j in i])
+		# print([j.name for j in i])
 		print([j.stype for j in i])
 
 	# print(weight.reshape(sizeLow, sizeCol))
