@@ -46,17 +46,17 @@ def study_add(request):
         """
         insert your function here
         """
-        schedule_list = processing(task_list=task_serializer, test_list=test_serializer, time_zones=time_zone)
-
-        for schedule_days, i in zip(schedule_list, range(len(schedule_list))):
-            times = pd.period_range(
-                start=today + datetime.timedelta(days=i + 1),
-                end=today + datetime.timedelta(days=i + 1) + datetime.timedelta(hours=time_zone.get_hour()),
-                freq = 'H')
-            schedule = [i for i in schedule_days if i != 'none']
-            for sch, time in zip(schedule, times.values[:,0]):
-                schedule_upload = Study(name=sche.name, stype=sche.stype, start=time, end=time + datetime.timedelta(hours=1))
-                schedule_upload.save()
+        # schedule_list = processing(task_list=task_serializer, test_list=test_serializer, time_zones=time_zone)
+        #
+        # for schedule_days, i in zip(schedule_list, range(len(schedule_list))):
+        #     times = pd.period_range(
+        #         start=today + datetime.timedelta(days=i + 1),
+        #         end=today + datetime.timedelta(days=i + 1) + datetime.timedelta(hours=time_zone.get_hour()),
+        #         freq = 'H')
+        #     schedule = [i for i in schedule_days if i != 'none']
+        #     for sch, time in zip(schedule, times.values[:,0]):
+        #         schedule_upload = Study(name=sche.name, stype=sche.stype, start=time, end=time + datetime.timedelta(hours=1))
+        #         schedule_upload.save()
 
         """"""
 
