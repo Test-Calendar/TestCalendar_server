@@ -79,28 +79,22 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd31659nnkql74c',
+        'USER': 'zryhtjkpnxqkxt',
+        'PASSWORD': '255cdc7f954a9d88a215ee5a310cfa5a0c4c3d1dab904b3027b25fc579be39a3',
+        'HOST': 'ec2-54-235-90-125.compute-1.amazonaws.com',
+        'PORT': '5432',
+   }
 }
-# if "COMPUTER-NAME" in hostname:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
-#     ALLOWED_HOSTS = []
-# else:
-#     import dj_database_url
-#     db_from_env = dj_database_url.config()
-#     DATABASES = {
-#         'default': dj_database_url.config()
-#     }
-#     ALLOWED_HOSTS = ['*']
-
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 

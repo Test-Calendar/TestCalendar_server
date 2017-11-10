@@ -34,7 +34,7 @@ def study_add(request):
         time_zone = TimeZoneSerializer(data=data.time_zone)
 
         for task in tasks:
-            # task_serializer = TaskSerializer(data=task)
+            task_serializer = TaskSerializer(data=task)
             task_serializer.append(TaskSerializer(data=task))
             # task_serializer.save()
 

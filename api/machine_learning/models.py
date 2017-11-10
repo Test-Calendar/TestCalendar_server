@@ -27,25 +27,22 @@ class Test:
         self.studyTime = studyTime
         self.start = start
 
-    def __lt__(self, other):
-        # self < other
-        return self.start < other.start
-
 class TimeZone:
     def __init__(self, start, end):
         self.start = start
         self.end = end
 
     def get_hour(self):
-        hour = self.end - self.start
-        return hour
+        return abs (self.end - self.start)
 
-# class Study:
-#     def __init__(self, name, stype, start, end):
-#         self.name = name
-#         self.stype = stype
-#         self.start = start
-#         self.end = end
+    def get_time_zone(self):
+        if self.start > self.end:
+            time_zones = [True if self.start <= i or self.end >= i else False for i in range(24)]
+        else:
+            time_zones = [True if sel.start <= i and sel.end >= i else False for i in range(24)]
+        return time_zones
+
+
 class Study:
     def __init__(self, name, stype):
         self.name = name
