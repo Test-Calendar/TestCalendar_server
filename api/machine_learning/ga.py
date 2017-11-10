@@ -2,7 +2,6 @@ import random
 import numpy as np
 import time
 from models import Para
-
 from deap import algorithms
 from deap import base
 from deap import creator
@@ -56,11 +55,8 @@ def main(para):
 
 
     pop = toolbox.population(n=100)
-
     hof = tools.HallOfFame(1, similar=np.array_equal)
-
     stats = tools.Statistics(lambda ind: ind.fitness.values)
-
-    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=1000, stats=stats,halloffame=hof)
+    algorithms.eaSimple(pop, toolbox, cxpb=0.5, mutpb=0.2, ngen=100, stats=stats,halloffame=hof)
 
     return hof
