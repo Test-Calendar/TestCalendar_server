@@ -14,6 +14,7 @@ import os
 from socket import gethostname
 # from dj_static import Cling
 from django.core.wsgi import get_wsgi_application
+from os import environ
 
 # application = Cling(get_wsgi_application())
 #Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pa+ws8oy@c)b(eo@yxlkk4%7x-7#bm&e3(bezvr3@!yxacadi5'
+SECRET_KEY = environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'd31659nnkql74c',
         'USER': 'zryhtjkpnxqkxt',
-        'PASSWORD': '255cdc7f954a9d88a215ee5a310cfa5a0c4c3d1dab904b3027b25fc579be39a3',
+        'PASSWORD': environ['PASSWORD'],
         'HOST': 'ec2-54-235-90-125.compute-1.amazonaws.com',
         'PORT': '5432',
    }
