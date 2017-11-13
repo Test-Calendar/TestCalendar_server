@@ -36,12 +36,12 @@ def study_add(request):
         for task in tasks:
             task_serializer = TaskSerializer(data=task)
             task_serializer.append(TaskSerializer(data=task))
-            # task_serializer.save()
+            task_serializer.save()
 
         for test in tests:
             # test_serializer = TestSerialzier(data=tests)
             test_serializer.append(TestSerialzier(data=tests))
-            # test_serializer.save()
+            test_serializer.save()
 
         """
         insert your function here
