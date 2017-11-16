@@ -7,18 +7,17 @@ from django.utils import timezone
 
 class Task(models.Model):
     name = models.CharField(max_length=10)
-    start = models.DateTimeField('date published')
-    end = models.DateTimeField('date published')
+    start = models.DateTimeField()
+    end = models.DateTimeField()
 
     # class Meta:
         # db_tablespace = "task"
 
 class Test(models.Model):
     name = models.CharField(max_length=15)
-    # 1:test 2:report 0:another
-    stype = models.IntegerField(default=0)
-    studyTime = models.IntegerField(default=10)
-    start = models.DateTimeField('date published')
+    stype = models.IntegerField()
+    studyTime = models.IntegerField()
+    start = models.DateTimeField()
 
     def __lt__(self, other):
         # self < other
@@ -28,8 +27,8 @@ class Test(models.Model):
     #     db_tablespace = "test"
 
 class TimeZone(models.Model):
-    start = models.IntegerField(default=18)
-    end = models.IntegerField(default=23)
+    start = models.IntegerField()
+    end = models.IntegerField()
     # class Meta:
     #     db_tablespace = "time_zone"
 
@@ -37,8 +36,8 @@ class TimeZone(models.Model):
 
 class Study(models.Model):
     name = models.CharField(max_length=15)
-    stype = models.IntegerField(default=0)
-    start = models.DateTimeField('date published')
-    end = models.DateTimeField('date published')
+    stype = models.IntegerField()
+    start = models.DateTimeField()
+    end = models.DateTimeField()
     # class Meta:
     #     db_tablespace = "study"
