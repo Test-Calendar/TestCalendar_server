@@ -25,12 +25,12 @@ def processing(task_list, test_list, time_zones):
 	# sizeLow = len(myschedule)
 	# sizeLow = (date_to.date() - today.date()).days
 	size = sizeCol * sizeLow
-	weight = np.array(eva.evaluation_func(test_list=test_list, task_list=task_list, sizeLow=sizeLow, time=sizeCol))
+	weight = np.array(eva.evaluation_func(test_list=test_list, task_list=task_list, sizeLow=sizeLow))
 	for we in weight:
 		for w in we:
 			print(format(round(w, 2))),
 		print("")
-		
+
 	para = Para(
 		size=size,
 		weight=weight,
