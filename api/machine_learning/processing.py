@@ -18,7 +18,7 @@ def processing(task_list, test_list, time_zones):
 	sizeCol = time_zones.get_hour()
 	# print(sizeCol)
 	# sizeCol = time_zones.get_hour() + 1
-	sizeLow = (date_to.date() - date_from).days
+	sizeLow = (date_to.date() - date_from).days + 1
 
 	""" set up """
 	myschedule = time_manege(time_zone=time_zones, date_to=date_to)
@@ -26,7 +26,8 @@ def processing(task_list, test_list, time_zones):
 	# sizeLow = (date_to.date() - today.date()).days
 	size = sizeCol * sizeLow
 	weight = np.array(eva.evaluation_func(test_list=test_list, task_list=task_list, sizeLow=sizeLow))
-	for we in weight:
+	for we in weight.reshape(sizeLow, len(test_list)):
+		# print(we)
 		for w in we:
 			print(format(round(w, 2))),
 		print("")
@@ -47,9 +48,9 @@ def processing(task_list, test_list, time_zones):
 
 	schedule_list = make_schedule(schedule.reshape(sizeLow, sizeCol), test_list)
 	# print(weight.reshape(sizeLow, sizeCol))
-	# for i in schedule_list:
-	# 	print([j.stype for j in i])
-	# 	print([j.name for j in i])
+	for i in schedule_list:
+		print([j.stype for j in i])
+		# print([j.name for j in i])
 
 	# print(weight.reshape(sizeLow, sizeCol))
 	return schedule_list
