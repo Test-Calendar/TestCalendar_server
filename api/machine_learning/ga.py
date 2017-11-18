@@ -24,7 +24,7 @@ def evalOneMax(individual, para):
     negativ = subject_time_check(para, subject_time)
 
     for ind, val_wei in zip(individual_array, value_weight_array):
-        if sum(ind) > para.study_time:
+        if sum(ind) > para.sizeCol:
             negativ = negativ - (sum(val_wei) / 2)
     return sum(value_weight) + negativ,
 
